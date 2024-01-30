@@ -1,0 +1,75 @@
+sdd{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+
+<div class="split-screen">
+</div>
+      <div class="right">
+        <form  method="POST" action="{% url 'company_register' %}">
+            {% csrf_token %}
+            <section class="copy">
+                <h2> company register</h2>
+            </section>
+            <div class="input-container name">
+                <label for="company_name">Company Name</label>
+                <input for="companyname" name="companyname" type="text">
+            </div>
+            <div class="input-container Email">
+                <label for="email">Email</label>
+                <input for="email" name="email" type="text">
+            </div>
+            <div class="input-container password">
+                <label for="username">username</label>
+                <input for="username" name="username" placeholder="" type="text">
+                <i class="far fa-eye-slash"></i>
+            </div>
+             <label for="address">address</label>
+            <textarea class="textarea" placeholder="Enter a message..." name="address"></textarea>
+
+             <div class="input-container password">
+                <label for="loaction">location</label>
+                <input for="location" name="location" placeholder="" type="text">
+                <i class="far fa-eye-slash"></i>
+            </div>
+             <div class="input-container password">
+                <label for="phone">Phone</label>
+                <input for="phone" name="phone" placeholder="" type="text">
+                <i class="far fa-eye-slash"></i>
+            </div>
+             <div class="input-container password">
+                <label for="password">password</label>
+                <input for="password" name="password" placeholder="Must be at 6 characters" type="text">
+                <i class="far fa-eye-slash"></i>
+            </div>
+            <div class="input-container cta">
+                <label for="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark">
+                        sign up for email updates</span>
+                </label>
+            </div>
+            <button class="signup-btn" type="submit">Sign Up </button>
+        </form>
+      </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

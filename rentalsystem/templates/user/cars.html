@@ -1,0 +1,160 @@
+{% extends 'user/userindex.html' %}
+{% block content %}
+{% load static %}
+
+
+    <style>
+    
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }+
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        
+    </style>
+
+
+
+
+    <!-- Rent A Car Start -->
+    <!-- <div class="container-fluid py-5">
+        <div class="container pt- pb-3">
+            <div class="row">
+                <div class="col-lg-4 col-md-3 mb-2">
+                    {% for i in data %}
+                    <div class="rent-item mb-3" style="float: left;">
+                        <img class="img-fluid mb-4" src="{{ i.image.url }}">
+                        <h4 class="text-uppercase mb-4">{{ i.name }}</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>{{ i.car_model }}</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>{{i.details}}</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>{{ i.price }}</span>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary px-3" href="cart">$99.00/Day</a>
+                    </div>
+                    {% endfor %}
+                </div>
+      
+            </div>
+        </div>
+    </div> -->
+    <!-- Rent A Car End -->
+
+   
+        <div class="container  pt-5 pb-3">
+            <div class="row ">
+                {% for i in data %}
+                <div class="col-lg-4 d-flex  mb-2">
+                   
+                    <div class="rent-item mb-3 " >
+                        <!-- Your existing content --> 
+                        <img class="img-fluid mb-4" src="{{ i.image.url }}">
+                        <h4 class="text-uppercase mb-4">{{ i.name }}</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>{{ i.car_model }}</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>{{ i.details }}</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>{{ i.price }}</span>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary px-3" href="{% url 'cart' id=i.id %}">$99.00/Day</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="col-lg-4 col-md-9 mb-2">
+                    <div class="search-bar">
+                       
+                        <form action="{% url 'car_search' %}" method="post">
+                            {% csrf_token %}
+                            <label for="car_name">Enter Car Name:</label>
+                            <input type="text" name="car_name" required>
+                            <button type="submit">Search</button>
+                        </form>
+                       
+                    </div> 
+                </div>
+                
+            </div>
+        </div>
+  
+        
+    
+
+    
+
+
+{% endblock %}

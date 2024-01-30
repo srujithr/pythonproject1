@@ -1,0 +1,87 @@
+
+{% extends 'user/userindex.html' %}
+{% block content %}
+{% load static %}
+
+    <style>
+    
+
+        h1 {
+            color: #3498db;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+    </style>
+
+    <div>
+        <h1>User Profile</h1>
+
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td><strong>first Name:</strong></td>
+                <td>{{ data.first_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>last Name:</strong></td>
+                <td>{{ data.last_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Username:</strong></td>
+                <td>{{ data.username }}</td>
+            </tr>
+            <tr>
+                <td><strong>Email:</strong></td>
+                <td>{{ data.email }}</td>
+            </tr>
+            <tr>
+                <td><strong>Company Name:</strong></td>
+                <td>{{ data.company_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Address:</strong></td>
+                <td>{{ data.address }}</td>
+            </tr>
+            <tr>
+                <td><strong>location:</strong></td>
+                <td>{{ data.location }}</td>
+            </tr>
+        </table>
+
+        <!-- You can also add a link to edit the profile -->
+        <a href="{% url 'edit_profile' id=user.id %}"><button type="button" class="btn btn-outline-success">Edit</button></a>
+    </div>
+
+{% endblock %}

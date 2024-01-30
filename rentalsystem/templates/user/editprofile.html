@@ -1,0 +1,106 @@
+{% extends 'company/companyindex.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .container {
+        margin-top: 40px;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-outline {
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: #555;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form method="post" action="{% url 'edit_profile' id=users.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-outline">
+                    <label class="form-label" for="carName">first Name</label>
+                    <input type="text" name="first_name" class="form-control" id="carName" value="{{ users.first_name }}">
+                </div>
+
+                <div class="form-outline">
+                    <label class="form-label" for="carModel">last name</label>
+                    <input type="text" name="last_name" class="form-control" id="carModel" value="{{ users.last_name }}">
+                </div>
+
+                <div class="form-outline">
+                    <label class="form-label" for="carPrice">email</label>
+                    <input type="text" name="email" class="form-control" id="carPrice" value="{{ users.email }}">
+                </div>
+
+
+                <div class="form-outline">
+                    <label class="form-label" for="carPrice">company name</label>
+                    <input type="text" name="company_name" class="form-control" id="carPrice" value="{{ users.company_name }}">
+                </div>
+
+              
+
+                <div class="form-outline">
+                    <label class="form-label">address</label>
+                    <textarea class="form-control" name="address" id="address" rows="6" value="{{ users.address}}"></textarea>
+                </div>
+
+                
+
+                <input type="submit" class="btn btn-success" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
