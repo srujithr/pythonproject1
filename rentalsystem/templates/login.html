@@ -85,6 +85,17 @@ button:hover {
       </div>
       <button class="signin-btn" type="submit">Sign In</button>
       {{ success }}
+
+      <br>
+      {% if messages %}
+    <div class="messages" style="color: red; text-align: center;">
+    {% for message in messages %}
+      <div class="{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
   </form>
 </div>
 {% endblock %}

@@ -6,6 +6,7 @@ from .models import customusers
 from datetime import datetime
 from .models import Car,customusers
 from .models import Booking
+from django.contrib import messages
 # Create your views here.
 
 
@@ -36,8 +37,7 @@ def user_register(request):
         phone = request.POST['phone']
         password = request.POST['password']
         location = request.POST['location']
-        company_name = request.POST['company_name']
-        user = customusers.objects.create_user(username=username,first_name=first_name,last_name=last_name,user_type=0,email=email,address=address,company_name=company_name,
+        user = customusers.objects.create_user(username=username,first_name=first_name,last_name=last_name,user_type='user',email=email,address=address,
                                               phone=phone,password=password,location=location)
         user.save()
         # return redirect()
@@ -55,10 +55,9 @@ def company_register(request):
         email = request.POST['email']
         location = request.POST['location']
         password = request.POST['password']
-        data = customusers.objects.create_user(company_name=company_name,address=company_address,location=location,user_type=1,phone=phone,username=username,
-                                               email=email,password=password)
+        data = customusers.objects.create_user(company_name=company_name,address=company_address,location=location,user_type='company',phone=phone,username=username,email=email,password=password)
         data.save()
-        return HttpResponse("company register successful")
+        return redirect(user_login)
     else:
 
         return render(request,'branch.html')
@@ -75,14 +74,18 @@ def user_login(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request, user)
-            if user.user_type == 1:# company has logined
+            if user.user_type == 'company':# company has logined
                 return redirect(user_page)
-            elif user.user_type == 0:# coutsomuser has has logined
+                
+            elif user.user_type == 'user':# coutsomuser has has logined
                 return redirect(userindex)
         else:
-            return render(request, 'login.html',)
-
+            messages.error(request, 'username and password already exist')
     return render(request, 'login.html')  
+    
+
+
+ 
 
 # ///////////////////// main index pages  end /////////////////////////
 
@@ -299,6 +302,7 @@ def car_request(request, id):
     if request.method == 'POST':
         no_of_days = int(request.POST['no_of_day'])
         day = request.POST['day']
+
         num = no_of_days * car.price
 
         booking_request = Booking.objects.create(
@@ -311,6 +315,7 @@ def car_request(request, id):
         booking_request.save()
 
         return redirect(user_requests)
+    
     
     else:
         return render(request,'user/request.html',{'car': car})
@@ -423,7 +428,7 @@ def review_add(request,id):
         data.save()
         print(data.review)
         print(data.Rating)
-        return HttpResponse('added')
+        return redirect(history)
     else:
         return render(request,'viewrequest.html',{'datas':data})
     

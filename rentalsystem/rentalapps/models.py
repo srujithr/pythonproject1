@@ -7,7 +7,7 @@ from django.utils import timezone
 class customusers(AbstractUser):
     Title = models.CharField(max_length=244)
     address = models.CharField(max_length=225, null=True)
-    user_type = models.IntegerField(null=True)
+    user_type = models.CharField(max_length=255,null=True)
     image = models.FileField()
     phone = models.IntegerField(null=True)
     location = models.CharField(max_length=255,null=True)
