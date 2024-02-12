@@ -58,12 +58,9 @@ urlpatterns = [
     path('user_requests',views.user_requests,name="user_requests"),
 
     path('userindex',views.userindex, name="userindex"),
-    path('services',views.services, name='services'),
+
     path('cars',views.cars, name='cars'),
-    path('details',views.details, name='details'),
-    path('contacts',views.contacts, name='contacts'),
-    path('booking',views.booking, name='booking'),
-    path('abouts',views.abouts, name='abouts'),
+
     
     path('view_users',views.view_users, name='view_users'),
     path('car_search',views.car_search, name='car_search'),

@@ -58,6 +58,7 @@
             <th>Day</th>
             <th>Booking Date</th>
             <th>Status</th>
+            <th>licence</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -68,8 +69,11 @@
                 <td>{{ booking.car.name }}</td>
                 <td>{{ booking.no_of_days }}</td>
                 <td>{{ booking.day }}</td>
+                
                 <td>{{ booking.booking_date }}</td>
+                
                 <td class="status-{{ booking.status|lower }}">{{ booking.status }}</td>
+                <td><a href="{{ booking.user.licence.url }}"><i class="bi bi-file-earmark-pdf-fill" style="font-size: 30px;"></i></a></td>
                 <td>
                     {% if booking.status == 'pending' %}
              

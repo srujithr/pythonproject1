@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Image Change</title>
-    <link rel = "stylesheet" href = "style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+{% extends 'user/userindex.html' %}
+{% block content %}
+{% load static %}
+<style>
+  
+ 
 
 *{
     padding: 0;
@@ -39,7 +33,7 @@ img{
 }
 .product-div{
     margin: 1rem 0;
-    padding: 6rem 0;
+    padding: 4rem 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     background-color: #fff;
@@ -53,7 +47,7 @@ img{
     padding: 20px;
 }
 .img-container img{
-    width: 200px;
+    width: 92%;
     margin: 0 auto;
 }
 .hover-container{
@@ -86,13 +80,16 @@ img{
     display: block;
 }
 .product-name{
+    color: black;
     font-size: 26px;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
     font-weight: 700;
     letter-spacing: 1px;
     opacity: 0.9;
 }
 .product-price{
+    color: black;
+
     font-weight: 700;
     font-size: 24px;
     opacity: 0.9;
@@ -107,6 +104,8 @@ img{
     margin-right: 6px;
 }
 .product-description{
+    color: black;
+
     font-weight: 18px;
     line-height: 1.6;
     font-weight: 300;
@@ -179,28 +178,18 @@ img{
             <div class = "product-div">
                 <div class = "product-div-left">
                     <div class = "img-container">
-                        <img src = "{% static 'img/car-rent-4.png' %}" alt = "watch">
+                        <img src = "{{ car.image.url }}" alt = "watch">
                     </div>
-                    <div class = "hover-container">
-                        <div><img src = "{% static 'img/car-rent-3.png' %}"></div>
-                        <div><img src = "{% static 'img/car-rent-1.png' %}"></div>
-                        <div><img src = "{% static 'img/car-rent-6.png' %}"></div>
-                        <div><img src = "{% static 'img/car-rent-5.png' %}"></div>
-                        <div><img src = "{% static 'img/car-rent-2.png' %}"></div>
-                    </div>
+                    
                 </div>
                 <div class = "product-div-right">
-                    <span class = "product-name">car</span>
-                    <span class = "product-price">$ 50.25</span>
-                    <div class = "product-rating">
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star-half-alt"></i></span>
-                        <span>(350 ratings)</span>
-                    </div>
-                    <p class = "product-description">{{ i.details }}</p>
+                    <span class = "product-name">{{ car.company_id.username }}</span>
+                    <span class = "product-name">{{ car.name }}</span>
+                    <span class = "product-name">{{ car.car_model }}</span>
+                    <span class = "product-price">{{ car.price }}</span>
+                 
+                    <p class = "product-description">{{ car.details }}</p>
+                    <p class = "product-description">{{ car.email }}</p>
                     <div class = "btn-groups">
                         <a href="{% url 'car_request' id=car.id %}"><button type = "button" class = "buy-now-btn"><i class = "fas fa-wallet"></i>buy now</button></a>
                     </div>
@@ -210,5 +199,6 @@ img{
     </div>
 
     <script src = "{% static 'js/script.js' %}"></script>
-</body>
-</html>
+
+
+{% endblock %}

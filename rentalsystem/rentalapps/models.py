@@ -12,6 +12,7 @@ class customusers(AbstractUser):
     phone = models.IntegerField(null=True)
     location = models.CharField(max_length=255,null=True)
     company_name = models.CharField(max_length=225,null=True)
+    licence = models.FileField()
 
     def __str__(self):
         return self.username

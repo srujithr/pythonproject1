@@ -27,6 +27,9 @@ def car(request):
 def contact(request):
     return render(request, "contact.html")
 
+
+
+
 def user_register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -37,13 +40,24 @@ def user_register(request):
         phone = request.POST['phone']
         password = request.POST['password']
         location = request.POST['location']
-        user = customusers.objects.create_user(username=username,first_name=first_name,last_name=last_name,user_type='user',email=email,address=address,
-                                              phone=phone,password=password,location=location)
+
+        licences = request.FILES['licences']
+        print(licences)
+
+        if customusers.objects.filter(username=username).exists():
+            return render(request, 'register.html', {'message': 'Username already exists'})
+        
+        if customusers.objects.filter(email=email).exists():
+            return render(request, 'register.html', {'error_message':'Email already exists'})
+
+        user = customusers.objects.create_user(username=username, first_name=first_name, last_name=last_name, user_type='user', 
+        email=email, address=address, phone=phone, password=password, location=location,licence=licences)
         user.save()
-        # return redirect()
+        
         return redirect(user_login)
     else:
         return render(request, 'register.html')
+
 
 
 def company_register(request):
@@ -55,12 +69,18 @@ def company_register(request):
         email = request.POST['email']
         location = request.POST['location']
         password = request.POST['password']
+        if customusers.objects.filter(username=username).exists():
+            return render(request, 'companyregister.html', {'a_message': 'Username already exists'})
+        
+        if customusers.objects.filter(email=email).exists():
+            return render(request, 'companyregister.html', {'b_message':'Email already exists'})
         data = customusers.objects.create_user(company_name=company_name,address=company_address,location=location,user_type='company',phone=phone,username=username,email=email,password=password)
         data.save()
         return redirect(user_login)
     else:
 
-        return render(request,'branch.html')
+        return render(request,'companyregister.html')
+    
 
 
 def user_login(request):
@@ -80,7 +100,7 @@ def user_login(request):
             elif user.user_type == 'user':# coutsomuser has has logined
                 return redirect(userindex)
         else:
-            messages.error(request, 'username and password already exist')
+            messages.error(request, 'invalid credential')
     return render(request, 'login.html')  
     
 
@@ -168,19 +188,6 @@ def view_car(request):
 
 
 
-
-
-   
-
-
-
-
-
-
-
-
-
-
 def view_requests(request):
     user = customusers.objects.get(id=request.user.id)
     print(user)
@@ -219,26 +226,17 @@ def user_requests(request):
     all_bookings = Booking.objects.filter(user=user)
     return render(request, 'user/viewrequest.html',{'all_bookings': all_bookings})
 
-def abouts(request):
-    return render(request, 'user/abouts.html')
 
-def contacts(request):
-    return render(request, 'user/contacts.html')
 
 def userindex(request):
     return render(request, 'user/userindex.html')
 
-def services(request):
-
-    return render(request, 'user/services.html')
 
 
 
 
 
 
-def details(request):
-    return render(request, 'user/detail.html')
 
 
 def cars(request):           
@@ -251,25 +249,7 @@ def cars(request):
 
 
 
-def booking(requset):
-    if requset.method == 'POST':
-        user = requset.POST['user']
-        no_of_days = requset.POST['no_of_days']
-        day = requset.POST['day']
-        Total_cost = requset.POST['Total_cost']
-        booking_date = requset.POST[' booking_date']
-        status = requset.POST['status']
-        Bookings = Booking.objects.create(user=user,no_of_days=no_of_days,day=day,Total_cost=Total_cost,booking_date=booking_date,status='pending')
 
-        Bookings.save()
-        return HttpResponse('Booking successful')
-    else:
-        return render(requset, 'user/booking.html')
-
-
-def company_review(request):
-    data = customusers.objects.filter()
-    return render(request, 'user/company_history.html',{'data':data})
 
 
 def profile(request):
@@ -283,9 +263,9 @@ def edit_profile(request,id):
         last_name = request.POST['last_name']
         email = request.POST['email']
         address = request.POST['address']
-        company_name = request.POST['company_name']
+        
         data = customusers.objects.update(first_name=first_name,last_name=last_name,email=email,
-                            address=address,company_name=company_name)
+                            address=address,)
         return redirect(view_users)
     else:
         return render(request, 'user/editprofile.html',{'users':users})
@@ -329,12 +309,13 @@ def cart(request,id):
 
 
 def car_search(request):
-    if request.method == "POST":
-        car_name = request.POST['car_name']
-        data = Car.objects.filter(name=car_name)
+    if request.method == "GET":
+        car_name = request.GET['name']
+        data = Car.objects.filter(name__icontains=car_name)
         return render(request, 'user/cars.html', {'data': data})
     else:
         return render(request, 'user/cars.html')
+
 
 
 
@@ -361,13 +342,7 @@ def statusrequest(request,id):
 
 
 
-def user_history(request):
-    user = customusers.objects.get(id=request.user.id)
-    print(user)
-    data = Car.objects.filter(company_id=user.id)
-    print(data)
-    data = customusers.objects.all()
-    return render(request, '    user/user_history.html',{'datta':data})
+
 
 
 
@@ -436,3 +411,8 @@ def review_add(request,id):
 def booking_review(request):
     datas = Booking.objects.all() 
     return render(request, 'user/cars.html', {'datas': datas})
+
+
+def cart(request,id):
+    data = Car.objects.get(id=id)
+    return render(request, 'user/cart.html',{'car':data})

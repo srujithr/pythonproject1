@@ -4,12 +4,12 @@
 <div class="formbold-main-wrapper">
 
   <div class="formbold-form-wrapper">
-    <form action="{% url 'user_register' %}" method="POST">
+    <form action="{% url 'user_register' %}" method="POST" enctype="multipart/form-data">
            {% csrf_token %}
       <div class="formbold-form-title">
         <h2 class="">User Register now</h2>
       </div>
-
+  
       <div class="formbold-input-flex">
         <div>
           <label for="firstname" class="formbold-form-label">First name</label>
@@ -20,7 +20,11 @@
           <input type="text" name="last_name" id="last_name">
         </div>
       </div>
-
+      {% if error_message %}
+      <div class="error-message">
+        <p>{{ error_message }}</p>
+      </div>
+      {% endif %}
       <div class="formbold-input-flex">
         <div>
           <label for="email" class="formbold-form-label"> Email </label>
@@ -31,9 +35,19 @@
           <input type="text" name="phone" >
         </div>
       </div>
+      
+      {% if message %}
+      <div class="message" style="color: red">
+        <p>{{ message }}</p>
+      </div>
+      {% endif %}
     <div class="formbold-mb-3">
         <label for="username" class="formbold-form-label">Username</label>
         <input type="text" name="username">
+      </div>
+      <div>
+        <label for="licenses" class="formbold-form-label">License</label>
+        <input type="file" name="licences" >
       </div>
       <div class="formbold-mb-3">
         <label for="address" class="formbold-form-label">Address</label>
@@ -41,12 +55,12 @@
       </div>
    
       <div class="formbold-mb-3">
-        <label for="loaction" class="formbold-form-label">location</label>
+        <label for="location" class="formbold-form-label">Location</label>
         <input type="text" name="location">
       </div>
       <div class="formbold-mb-3">
-        <label for="address" class="formbold-form-label">password</label>
-        <input type="text" name="password">
+        <label for="password" class="formbold-form-label">Password</label>
+        <input type="password" name="password">
       </div>
       <div class="formbold-input-flex">
       </div>
@@ -197,25 +211,10 @@
   .formbold-btn:hover {
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
   }
+
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
 </style>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
